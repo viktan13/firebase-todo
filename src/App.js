@@ -1,20 +1,32 @@
 import './App.css';
 import db from './connectDB';
 import {collection, getDocs} from 'firebase/firestore';
+import {useEffect, useState} from "react";
 
 function App() {
 
+  const[todoList, setTodoList] = useState([]);
+
+  useEffect(() => {
   async function getTodoList(db) {
     const todoCol = collection(db, 'todoList');
     const todoSnapshot = await getDocs(todoCol);
-    const todoList = todoSnapshot.docs.map(doc => doc.data());
-    return todoList;
+    const dbtodoList = todoSnapshot.docs.map(doc => doc.data());
+    setTodoList(dbtodoList);
   }
+  getTodoList(db);
+  })
 
 
 
   return (
-    <div className="App">
+    <div>
+
+      <ul>
+        {todoList.map(el => (
+            <li key={el.id}>{el.title}</li>
+        ))}
+      </ul>
 
     </div>
   );
