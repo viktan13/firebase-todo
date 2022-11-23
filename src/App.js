@@ -1,6 +1,6 @@
 import './App.css';
 import db from './connectDB';
-import {collection, getDocs} from 'firebase/firestore';
+import {collection, query, onSnapshot} from 'firebase/firestore';
 import {useEffect, useState} from "react";
 
 function App() {
@@ -8,13 +8,13 @@ function App() {
   const[todoList, setTodoList] = useState([]);
 
   useEffect(() => {
-  async function getTodoList(db) {
-    const todoCol = collection(db, 'todoList');
-    const todoSnapshot = await getDocs(todoCol);
-    const dbtodoList = todoSnapshot.docs.map(doc => doc.data());
-    setTodoList(dbtodoList);
-  };
-  getTodoList(db);
+  const todoListColRef = query(collection(db, 'todoList'));
+  onSnapshot(todoListColRef, (snapshot) => {
+      setTodoList(snapshot.docs.map(el => ({
+          id: el.id,
+          ...el.data(),
+      })))
+  })
   });
 
 
