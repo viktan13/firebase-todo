@@ -13,9 +13,9 @@ function App() {
     const todoSnapshot = await getDocs(todoCol);
     const dbtodoList = todoSnapshot.docs.map(doc => doc.data());
     setTodoList(dbtodoList);
-  }
+  };
   getTodoList(db);
-  })
+  });
 
 
 
