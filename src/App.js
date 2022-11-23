@@ -1,23 +1,21 @@
-import logo from './logo.svg';
 import './App.css';
+import db from './connectDB';
+import {collection, getDocs} from 'firebase/firestore';
 
 function App() {
+
+  async function getTodoList(db) {
+    const todoCol = collection(db, 'todoList');
+    const todoSnapshot = await getDocs(todoCol);
+    const todoList = todoSnapshot.docs.map(doc => doc.data());
+    return todoList;
+  }
+
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
     </div>
   );
 }
