@@ -1,6 +1,6 @@
 import './App.css';
 import db from './connectDB';
-import {collection, query, onSnapshot, addDoc, Timestamp} from 'firebase/firestore';
+import {collection, query, onSnapshot, orderBy} from 'firebase/firestore';
 import {useEffect, useState} from "react";
 import CreateTaskForm from "./CreateTaskForm";
 
@@ -8,14 +8,15 @@ function App() {
 
     const [todoList, setTodoList] = useState([]);
 
+
     useEffect(() => {
-        const todoListColRef = query(collection(db, 'todoList'));
+        const todoListColRef = query(collection(db, 'todoList'), orderBy('created', 'asc'));
         onSnapshot(todoListColRef, (snapshot) => {
             setTodoList(snapshot.docs.map(el => ({
                 ...el.data(),
             })))
         })
-    });
+    }, []);
 
 
     return (
@@ -26,7 +27,7 @@ function App() {
                     <li key={el.id}>{el.title}</li>
                 ))}
             </ul>
-            <button onClick={addTo}>Add</button>
+
 
         </div>
     );

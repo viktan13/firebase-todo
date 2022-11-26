@@ -14,7 +14,7 @@ const CreateTaskForm = () => {
         addDoc(collection(db, 'todoList'), {
             title,
             done: false,
-
+            created: Timestamp.now(),
         }).then(res => console.log(res)).catch(err => console.log(err));
         setTitle('');
     }
