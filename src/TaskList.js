@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {collection, onSnapshot, orderBy, query} from "firebase/firestore";
+import {collection, onSnapshot, orderBy, query, deleteDoc, doc, getFirestore} from "firebase/firestore";
 import db from "./connectDB";
 
 const TaskList = (props) => {
@@ -14,10 +14,20 @@ const TaskList = (props) => {
             })))
         })
     }, []);
+
+    const onDeleteTask = (id) => {
+        deleteDoc(doc(db, 'todoList', id))
+            .then(() => console.log("Entire Document has been deleted successfully."))
+            .catch(err => console.log(err));
+    }
+
     return (
         <ul>
             {todoList.map(el => (
-                <li key={el.id}>{el.title} <button>Delete</button></li>
+                <li key={el.title}>
+                    {el.title}
+                    <button onClick={() => onDeleteTask(el.id)}>Delete</button>
+                </li>
             ))}
         </ul>
     );
