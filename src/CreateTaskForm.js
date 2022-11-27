@@ -10,12 +10,12 @@ const CreateTaskForm = () => {
 
     const addToList = (e) => {
         e.preventDefault();
-        console.log(db);
-        addDoc(collection(db, 'todoList'), {
+        const refDoc = collection(db, 'todoList');
+        addDoc(refDoc, {
             title,
             done: false,
             created: Timestamp.now(),
-        }).then(res => console.log(res)).catch(err => console.log(err));
+        }).then(res => console.log(res.id)).catch(err => console.log(err));
         setTitle('');
     }
 

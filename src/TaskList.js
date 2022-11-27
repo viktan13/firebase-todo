@@ -9,8 +9,9 @@ const TaskList = (props) => {
     useEffect(() => {
         const todoListColRef = query(collection(db, 'todoList'), orderBy('created', 'asc'));
         onSnapshot(todoListColRef, (snapshot) => {
-            setTodoList(snapshot.docs.map(el => ({
-                ...el.data(),
+            setTodoList(snapshot.docs.map(doc => ({
+                id: doc.id,
+                ...doc.data(),
             })))
         })
     }, []);
@@ -24,9 +25,10 @@ const TaskList = (props) => {
     return (
         <ul>
             {todoList.map(el => (
-                <li key={el.title}>
+                <li key={el.id}>
                     {el.title}
-                    <button onClick={() => onDeleteTask(el.id)}>Delete</button>
+                    <button onClick={() => onDeleteTask()}>Delete</button>
+                    <button onClick={() => console.log(el.id)}>Show the object</button>
                 </li>
             ))}
         </ul>
