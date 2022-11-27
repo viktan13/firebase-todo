@@ -27,8 +27,7 @@ const TaskList = (props) => {
             {todoList.map(el => (
                 <li key={el.id}>
                     {el.title}
-                    <button onClick={() => onDeleteTask()}>Delete</button>
-                    <button onClick={() => console.log(el.id)}>Show the object</button>
+                    <button onClick={() => onDeleteTask(el.id)}>Delete</button>
                 </li>
             ))}
         </ul>
