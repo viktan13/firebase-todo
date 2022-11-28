@@ -18,7 +18,7 @@ function App() {
 
 
     return (
-        <div>
+        <div className="container">
             <CreateTaskForm />
             <TaskList onEdit={onEdit}/>
             <EditTaskForm id={editTaskId} onCancel={onEditCancel}/>

@@ -20,9 +20,9 @@ const CreateTaskForm = () => {
     }
 
     return (
-        <form>
-            <input type="text" placeholder="Enter task title" value={title} onChange={e => setTitle(e.target.value)}/>
-            <button type="submit" onClick={addToList}>Add to List</button>
+        <form className="input-group mb-3">
+            <input type="text" className="form-control" placeholder="Enter task title" value={title} onChange={e => setTitle(e.target.value)}/>
+            <button type="submit" className="btn btn-outline-primary" onClick={addToList}>Add to List</button>
         </form>
     );
 };
