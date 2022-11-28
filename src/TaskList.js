@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {collection, onSnapshot, orderBy, query, deleteDoc, doc, getFirestore} from "firebase/firestore";
+import {collection, onSnapshot, orderBy, query, deleteDoc, doc, updateDoc} from "firebase/firestore";
 import db from "./connectDB";
 
 const TaskList = (props) => {
@@ -22,12 +22,20 @@ const TaskList = (props) => {
             .catch(err => console.log(err));
     }
 
+    function onToggleDone(id, newStatus) {
+        updateDoc(doc(db, 'todoList', id), {completed: newStatus})
+            .then(r => console.log(r))
+            .catch(err => console.log(err));
+    }
+
     return (
         <ul>
             {todoList.map(el => (
                 <li key={el.id}>
-                    {el.title}
+                    {el.completed ? <s>{el.title}</s> : el.title}
                     <button onClick={() => onDeleteTask(el.id)}>Delete</button>
+                    <button onClick={() => onToggleDone(el.id, !el.completed)}>Done</button>
+                    <button onClick={() => props.onEdit(el.id)}>Edit</button>
                 </li>
             ))}
         </ul>
