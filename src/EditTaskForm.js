@@ -36,10 +36,10 @@ const EditTaskForm = (props) => {
 if(!title || !props.id) return null;
 
     return (
-        <form>
-            <input type="text" placeholder="Enter task title" value={title} onChange={e => setTitle(e.target.value)}/>
-            <button type="submit" onClick={handleSubmit}>Save</button>
-            <button type="submit" onClick={handleCancel}>Cancel</button>
+        <form className="input-group col-6">
+            <input type="text" className="form-control" placeholder="Enter task title" value={title} onChange={e => setTitle(e.target.value)}/>
+            <button type="submit" onClick={handleSubmit} className="btn btn-outline-secondary">Save</button>
+            <button type="submit" onClick={handleCancel} className="btn-close"></button>
         </form>
     );
 };
